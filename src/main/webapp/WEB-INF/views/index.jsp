@@ -9,11 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Chariry</title>
-
     <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
 </head>
 <body>
-
 <jsp:include page="header.jsp"></jsp:include>
 <div class="slogan container container--90">
     <div class="slogan--item">
@@ -27,7 +25,7 @@
 <section class="stats">
     <div class="container container--85">
         <div class="stats--item">
-            <em>13</em>
+            <em><c:out value = "${sumOfDonation}"/></em>
 
             <h3>Oddanych worków</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
@@ -35,7 +33,7 @@
         </div>
 
         <div class="stats--item">
-            <em>5</em>
+            <em><c:out value = "${countOfCategory}"/></em>
             <h3>Przekazanych darów</h3>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
                 quam.</p>
@@ -43,7 +41,7 @@
 
     </div>
 </section>
-
+<a id="o_co_chodzi">
 <section class="steps">
     <h2>Wystarczą 4 proste kroki</h2>
 
@@ -72,18 +70,20 @@
 
     <a href="#" class="btn btn--large">Załóż konto</a>
 </section>
-
-<section class="about-us">
-    <div class="about-us--text">
-        <h2>O nas</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
-            optio esse quisquam illo omnis.</p>
-        <img src="<c:url value="resources/images/signature.svg"/>" class="about-us--text-signature" alt="Signature"/>
-    </div>
-    <div class="about-us--image"><img src="<c:url value="resources/images/about-us.jpg"/>" alt="People in circle"/>
-    </div>
-</section>
-
+</a>
+<a id="o_nas">
+    <section class="about-us">
+        <div class="about-us--text">
+            <h2>O nas</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
+                optio esse quisquam illo omnis.</p>
+            <img src="<c:url value="resources/images/signature.svg"/>" class="about-us--text-signature" alt="Signature"/>
+        </div>
+        <div class="about-us--image"><img src="<c:url value="resources/images/about-us.jpg"/>" alt="People in circle"/>
+        </div>
+    </section>
+</a>
+<a id="fundacje">
 <section class="help">
     <h2>Komu pomagamy?</h2>
 
@@ -93,35 +93,35 @@
             Możesz sprawdzić czym się zajmują.</p>
 
         <ul class="help--slides-items">
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja "Dbam o Zdrowie"</div>
-                    <div class="subtitle">Cel i misja: Pomoc dzieciom z ubogich rodzin.</div>
-                </div>
+            <c:forEach items="${institutions}" var="institution" varStatus="theCount">
 
-                <div class="col">
-                    <div class="title">Fundacja "A kogo"</div>
-                    <div class="subtitle">Cel i misja: Pomoc wybudzaniu dzieci ze śpiączki.</div>
-                </div>
-            </li>
+                <c:choose>
+                    <c:when test="${theCount.index % 2 == 0}">
+                        <li>
+                        <div class="col">
+                            <div class="title">Fundacja "<c:out value = "${institution.name}"/>"</div>
+                            <div class="subtitle">Cel i misja: <c:out value = "${institution.description}"/></div>
+                        </div>
+                    </c:when>
+                    <c:when test="${theCount.index % 2 == 1}">
+                        <div class="col">
+                            <div class="title">Fundacja "<c:out value = "${institution.name}"/>"</div>
+                            <div class="subtitle">Cel i misja: <c:out value = "${institution.description}"/></div>
+                        </div>
+                        </li>
+                    </c:when>
 
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja “Dla dzieci"</div>
-                    <div class="subtitle">Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji życiowej.</div>
-                </div>
-                <div class="col">
-                    <div class="title">Fundacja “Bez domu”</div>
-                    <div class="subtitle">Cel i misja: Pomoc dla osób nie posiadających miejsca zamieszkania</div>
-                </div>
 
-            </li>
+                </c:choose>
+
+            </c:forEach>
+
 
         </ul>
     </div>
 
 </section>
-
+</a>
 <jsp:include page="footer.jsp"></jsp:include>
 
 <script src="<c:url value="resources/js/app.js"/>"></script>

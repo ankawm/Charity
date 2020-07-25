@@ -9,15 +9,14 @@ import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
-    //public String homeAction(Model model){
-     //   return "index";
-    //}
     private final DonationRepository donationRepository;
     private final CategoryRepository categoryRepository;
     private final InstitutionRepository institutionRepository;
@@ -28,12 +27,20 @@ public class HomeController {
 
     }
     @GetMapping("")
-    public String getInstitutions(Model model){
+    public String getHomeData(Model model){
         List<Institution> institutions = institutionRepository.findAll();
-        model.addAttribute("institutions", institutions);
+        Collections.shuffle(institutions);
+        int randomSeriesLength = 4;
+        List<Institution> randomSeries = institutions.subList(0, randomSeriesLength);
+        model.addAttribute("institutions", randomSeries);
+
+        Integer sumOfDonation = donationRepository.sumOfQuantity();
+        model.addAttribute("sumOfDonation", sumOfDonation);
+        Integer countOfCategory = donationRepository.countOfCategory();
+        model.addAttribute("countOfCategory", countOfCategory);
+
         return "index";
     }
-
 
 
 }

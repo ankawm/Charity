@@ -1,13 +1,17 @@
 package pl.coderslab.charity.domain;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 @Entity
+@Table(name = "donation")
 public class Donation {
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private Integer quantity;// (liczba worków) (Integer)
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "donation_category", joinColumns = @JoinColumn(name = "donation_id"),
@@ -17,17 +21,28 @@ public class Donation {
     @JoinColumn(name = "institution_id")
     private  Institution institution; // (obiekt typu Institution), pamiętaj o odpowiedniej adnotacji.
     private String street;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     private String city;
     private String zipCode;
+    private String phone;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
     private LocalTime pickUpTime;
     private String pickUpComment;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -5,8 +5,6 @@ import pl.coderslab.charity.domain.Institution;
 
 import java.util.List;
 
-public interface InstitutionRepository extends JpaRepository<Institution, Integer> {
-    Institution findByName(String name);
-    Institution findById(long id);
+public interface InstitutionRepository extends JpaRepository<Institution, Long> {
     List<Institution> findAll();
 }

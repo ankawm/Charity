@@ -5,8 +5,6 @@ import pl.coderslab.charity.domain.Category;
 
 import java.util.List;
 
-public interface CategoryRepository extends JpaRepository<Category, Integer> {
-    Category findByName(String name);
-    Category findById(long id);
+public interface CategoryRepository extends JpaRepository<Category, Long> {
     List<Category> findAll();
 }
