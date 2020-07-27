@@ -1,5 +1,6 @@
 package pl.coderslab.charity.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -7,48 +8,53 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.coderslab.charity.domain.Category;
-import pl.coderslab.charity.domain.Donation;
-import pl.coderslab.charity.domain.Institution;
+import pl.coderslab.charity.domain.*;
 import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
+import pl.coderslab.charity.repository.UserRepository;
 
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
 @Controller
-@RequestMapping("/donation")
+@RequestMapping("/user")
 public class DonationController {
 
       private final DonationRepository donationRepository;
       private final CategoryRepository categoryRepository;
       private final InstitutionRepository institutionRepository;
-      public DonationController(DonationRepository donationRepository, CategoryRepository categoryRepository, InstitutionRepository institutionRepository) {
+      private final UserRepository userRepository;
+      public DonationController(UserRepository userRepository, DonationRepository donationRepository, CategoryRepository categoryRepository, InstitutionRepository institutionRepository) {
+          this.userRepository = userRepository;
           this.donationRepository = donationRepository;
           this.categoryRepository = categoryRepository;
           this.institutionRepository  = institutionRepository;
       }
 
       @RequestMapping(value = "confirmation", method = RequestMethod.GET)
-      public String getConfirmation(Model model) {
-          return "form-confirmation";
+      public String getConfirmation(@AuthenticationPrincipal CurrentUser customUser, Model model) {
+          User newCurrentUser = userRepository.findByUsername(customUser.getUser().getUsername());
+          model.addAttribute("currentUser", newCurrentUser);
+          return "user/form-confirmation";
       }
 
-      @RequestMapping(value = "add", method = RequestMethod.GET)
-      public String getForm(Model model) {
+      @RequestMapping(value = "donation", method = RequestMethod.GET)
+      public String getForm(@AuthenticationPrincipal CurrentUser customUser,Model model) {
+          User newCurrentUser = userRepository.findByUsername(customUser.getUser().getUsername());
+          model.addAttribute("currentUser", newCurrentUser);
           model.addAttribute("donation", new Donation());
-          return "form";
+          return "user/form";
       }
 
-      @RequestMapping(value = "add", method = RequestMethod.POST)
+      @RequestMapping(value = "donation", method = RequestMethod.POST)
       public String create(@Valid Donation donation, BindingResult result) {
           if (result.hasErrors()) {
-              return "form";
+              return "user/form";
           }
           donationRepository.save(donation);
-          return "form-confirmation";
+          return "redirect:/user/confirmation";
       }
 //
 //    @RequestMapping(value = "editForm/{id}", method = RequestMethod.GET)

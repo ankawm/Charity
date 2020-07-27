@@ -14,25 +14,32 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="header2.jsp"></jsp:include>
 
-<section class="login-page">
-<h2>Zaloguj się</h2>
-<form>
-<div class="form-group">
-<input type="email" name="email" placeholder="Email" />
-</div>
-<div class="form-group">
-<input type="password" name="password" placeholder="Hasło" />
-<a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
-</div>
+    <section class="login-page">
+        <h2>Zaloguj się</h2>
+    <form method="POST" action="${contextPath}/login" class="form-signin">
+        <div class="form-group ${error != null ? 'has-error' : ''}">
+        <div class="form-group">
+            <span>${message}</span>
+            <br>
+            <input name="username" type="text" placeholder="Email"
+                   autofocus="true"/>
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" placeholder="Hasło" />
+            <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
+            <span>${error}</span><br>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </div>
 
-<div class="form-group form-group--buttons">
-<a href="#" class="btn btn--without-border">Załóż konto</a>
-<button class="btn" type="submit">Zaloguj się</button>
-</div>
-</form>
-</section>
+        <div class="form-group form-group--buttons">
+            <a href="${contextPath}/registration" class="btn btn--without-border">Załóż konto</a>
+            <button class="btn" type="submit">Zaloguj się</button>
+        </div>
+        </div>
+    </form>
+    </section>
 
 <jsp:include page="footer.jsp"></jsp:include>
 <script src="<c:url value="/resources/js/app.js"/>"></script>

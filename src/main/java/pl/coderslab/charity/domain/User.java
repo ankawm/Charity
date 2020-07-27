@@ -17,23 +17,14 @@ public class User {
     private String password;
     private int enabled;
 
-    @NotNull
-    @Size(min=2, max=50)
-    @Column(length = 50,
-            nullable = false)
+    @Column(length = 50)
     private String firstName;
-    @NotNull
-    @Column(length = 50,
-            nullable = false)
+    @Column(length = 50)
     private String lastName;
-    @NotNull
-    @Column(length = 50,
-            nullable = false)
+    @Column(length = 50)
     private String position;
-    @NotNull
     @Email
-    @Column(length = 50,
-            nullable = false)
+    @Column(length = 50, nullable = false)
     private String email;
     private LocalDateTime createdOn;
     @PrePersist

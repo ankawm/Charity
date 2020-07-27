@@ -44,7 +44,7 @@
                 <h3>Zaznacz co chcesz oddać:</h3>
 
                        <c:forEach items="${categories}" var="category">
-                           <div class="form-group form-group--checkbox">
+                           <div class="form-group form-group--checkbox" id="checkbox">
                                <label>
                                    <input
                                            type="checkbox"
@@ -88,7 +88,7 @@
             <h3>Wybierz organizacje, której chcesz pomóc:</h3>
 
             <c:forEach items="${institutions}" var="institution">
-                <div class="form-group form-group--checkbox">
+                <div class="form-group form-group--checkbox" id="radio">
                     <label>
                         <input
                                 id="institution<c:out value = "${institution.id}"/>"
@@ -161,7 +161,7 @@
             </div>
             <div class="form-group form-group--buttons">
                 <button type="button" class="btn prev-step">Wstecz</button>
-                <button type="button" class="btn next-step">Dalej</button>
+                <button type="button" class="btn next-step" id="sumarryBtn">Dalej</button>
             </div>
         </div>
 
@@ -172,40 +172,41 @@
             <div class="summary">
                 <div class="form-section">
                     <h4>Oddajesz:</h4>
+                    <table></table>
                     <ul>
-                        <li>
+                        <li id="bag">
                             <span class="icon icon-bag"></span>
                             <span class="summary--text">
-                                ... worki ubrań w dobrym stanie dla dzieci
+                                <!--... worki ubrań w dobrym stanie dla dzieci-->
                             </span>
                         </li>
 
-                        <li>
+                        <li id="hand">
                             <span class="icon icon-hand"></span>
-                            <span class="summary--text"
-                            >Dla fundacji "Mam marzenie" w Warszawie</span
-                            >
+                            <span class="summary--text">
+                                <!--Dla fundacji "Mam marzenie" w Warszawie-->
+                            </span>
                         </li>
                     </ul>
                 </div>
 
                 <div class="form-section form-section--columns">
-                    <div class="form-section--column">
+                    <div class="form-section--column" id="address">
                         <h4>Adres odbioru:</h4>
                         <ul>
-                            <li>Prosta 51</li>
+                            <!--    <li>Prosta 51</li>
                             <li>Warszawa</li>
                             <li>99-098</li>
-                            <li>123 456 789</li>
+                            <li>123 456 789</li>-->
                         </ul>
                     </div>
 
-                    <div class="form-section--column">
+                    <div class="form-section--column" id="term">
                         <h4>Termin odbioru:</h4>
                         <ul>
-                            <li>13/12/2018</li>
+                            <!--    <li>13/12/2018</li>
                             <li>15:40</li>
-                            <li>Brak uwag</li>
+                            <li>Brak uwag</li>-->
                         </ul>
                     </div>
                 </div>
@@ -220,7 +221,7 @@
 </div>
 </section>
 
-<jsp:include page="footer.jsp"></jsp:include>
+<jsp:include page="../footer.jsp"></jsp:include>
 
 <script src="<c:url value="/resources/js/app.js"/>"></script>
 </body>

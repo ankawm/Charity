@@ -44,8 +44,12 @@ public class LoginController {
         if (result.hasErrors()) {
             return "register";
         }
+        user.setUsername(user.getEmail());
+        user.setFirstName("***");
+        user.setLastName("***");
+        user.setPosition("***");
         userService.saveUser(user);
-        return "redirect:/login";
+        return "login";
     }
     @RequestMapping(value = "/logout" , method = RequestMethod.GET)
     public String logoutGet(){
@@ -63,13 +67,13 @@ public class LoginController {
         User newCurrentUser = userRepository.findByUsername(customUser.getUser().getUsername());
         model.addAttribute("currentUser", newCurrentUser);
 
-        return "form";
+        return "redirect:/user/donation";
     }
     @RequestMapping(value = "/admin/home", method = RequestMethod.GET)
     public String getViewAdminHome(@AuthenticationPrincipal CurrentUser customUser, Model model) {
         model.addAttribute("currentUser", customUser.getUser());
 
-        return "admin/home";
+        return "admin/form";
     }
     //@RequestMapping(value = "/admin/home", method = RequestMethod.GET)
     //@ResponseBody
