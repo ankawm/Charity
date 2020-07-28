@@ -63,7 +63,7 @@
         line9.innerText = pickUpComment.value;
         document.querySelector("#term ul").appendChild(line9);
 
-const bags = document.querySelector("#quantity");
+      const bags = document.querySelector("#quantity");
       const category = document.querySelectorAll("#checkbox label input");
       const categoryName = document.querySelectorAll("#checkbox label .description");
 
